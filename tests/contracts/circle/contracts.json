@@ -1,0 +1,22 @@
+{
+  "circle_relayer": {
+    "abi": "circle_relayer.abi",
+    "address": {
+      "Arbitrum": "0x4cb69FaE7e7Af841e44E1A1c30Af640739378bb2",
+      "Optimism": "0x4cb69FaE7e7Af841e44E1A1c30Af640739378bb2",
+      "Base": "0x4cb69FaE7e7Af841e44E1A1c30Af640739378bb2",
+      "Avalanche": "0x4cb69FaE7e7Af841e44E1A1c30Af640739378bb2",
+      "Ethereum": "0x4cb69FaE7e7Af841e44E1A1c30Af640739378bb2"
+    }
+  },
+  "token_messenger": {
+    "abi": "token_messenger.abi",
+    "address": {
+      "Arbitrum": "",
+      "Optimism": "0x2B4069517957735bE00ceE0fadAE88a26365528f",
+      "Base": "",
+      "Avalanche": "",
+      "Ethereum": ""
+    }
+  }
+}

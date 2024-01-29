@@ -1,5 +1,7 @@
 import os
 import json
+from eth_typing import AnyAddress
+from hexbytes import HexBytes
 from web3 import AsyncWeb3, Web3
 from typing import Optional
 from typing import Literal, get_args
@@ -163,3 +165,18 @@ def validate_token(
     """
     if not in_literal(token, token_literal):
         raise InvalidToken(token, network, defi, get_args(token_literal))
+
+
+def encode_to_bytes32(address: AnyAddress | str) -> HexBytes:
+    """
+    Encode the given address to a 32 byte address
+    :param address: The address to be encoded
+    :return: The encoded address
+    """
+    if isinstance(address, bytes):
+        address = address.hex()
+
+    address = address.split('0x')[1].zfill(64)
+
+    encoded = HexBytes(address)
+    return encoded

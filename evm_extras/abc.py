@@ -50,7 +50,7 @@ class Defi(ABC):
 
         :return: An instance of AsyncWeb3.
         """
-        return self.provider
+        return self._provider
 
     @property
     def version(self) -> int | None:

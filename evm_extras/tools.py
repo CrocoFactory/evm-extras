@@ -1,6 +1,7 @@
 import os
 import json
 from eth_typing import AnyAddress
+from evm_wallet import AsyncWallet, Wallet
 from hexbytes import HexBytes
 from web3 import AsyncWeb3, Web3
 from typing import Optional
@@ -125,7 +126,7 @@ def validate_network(func):
     @wraps(func)
     def wrapper(self, *args, **kwargs):
         network = self.network
-        wallet = self.wallet
+        wallet: Wallet | AsyncWallet = self.wallet
 
         if network != wallet.network:
             defi = self._defi_name or self.__class__.__name__

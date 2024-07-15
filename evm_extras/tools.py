@@ -85,7 +85,7 @@ def load_contracts(
     path = os.path.join(contracts_path, folder_name)
 
     if version:
-        path = os.path.join(contracts_path, f'v{version}')
+        path = os.path.join(path, f'v{version}')
 
     contract_data = {}
     with open(f"{path}/contracts.json") as file:

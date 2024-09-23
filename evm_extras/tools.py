@@ -85,38 +85,26 @@ def load_contracts(
     path = os.path.join(contracts_path, folder_name)
 
     if version:
-        path = os.path.join(contracts_path, f'v{version}')
+        path = os.path.join(path, f'v{version}')
 
-    contract_data = {}
     with open(f"{path}/contracts.json") as file:
         content = json.load(file)
         contract_names = content.keys()
 
-        for name in contract_names:
-            contract_content = content[name]
-            if 'address' in contract_content:
-                addresses = contract_content['address']
-                if network not in addresses:
-                    raise ContractNotFound(defi, network, addresses.keys())
-
-                contract_data[name] = {'address': addresses[network], 'abi_path': contract_content['abi']}
-            else:
-                contract_data[name] = {'abi_path': contract_content['abi']}
-
-    for name in contract_names:
-        with open(os.path.join(path, contract_data[name]['abi_path'])) as file:
-            abi = json.load(file)
-            if name in contract_data:
-                contract_data[name]['abi'] = abi
-            else:
-                contract_data[f"{name}_abi"] = {'abi': abi}
-
     contracts = {}
-    for key, value in contract_data.items():
-        abi = value['abi']
+    for name in contract_names:
+        contract_content = content[name]
+        with open(os.path.join(path, contract_content['abi'])) as file:
+            abi = json.load(file)
 
-        address = value.get('address')
-        contracts[key] = provider.eth.contract(address=address, abi=abi) if address else abi
+        if 'address' in contract_content:
+            addresses = contract_content['address']
+            if network not in addresses:
+                raise ContractNotFound(defi, network, addresses.keys())
+
+            contracts[name] = provider.eth.contract(address=addresses[network], abi=abi)
+        else:
+            contracts[f'{name}_abi'] = abi
 
     return contracts
 
